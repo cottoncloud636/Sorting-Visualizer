@@ -13,7 +13,7 @@ let gainNode;
 function audioSetUp(){
     if (audioCtx===null){
         audioCtx = new (window.AudioContext || window.webkitAudiotContext)();
-        const audioFilePath = './static/cartoon.mp3'; 
+        const audioFilePath = './static/cartoon1.mp3'; 
         // }
 
         audio = new Audio(audioFilePath);
