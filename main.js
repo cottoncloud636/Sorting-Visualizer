@@ -5,18 +5,24 @@ const arr=[];
 shuffle(); //automically call shuffle function w/o button click, so that content will always be displayed on screen
 //randomly shuffle
 
-// let audioCtx=null; //audiocContext
+let audioCtx=null; //audiocContext
+let audio;
+let gainNode;
 
-// if (audioCtx===null){
-audioCtx = new (window.AudioContext || window.webkitAudiotContext)();
-const audioFilePath = './static/cartoon.mp3'; 
-// }
 
-const audio = new Audio(audioFilePath);
-let audioElement = audioCtx.createMediaElementSource(audio);
-let gainNode = audioCtx.createGain();
-audioElement.connect(gainNode);
-gainNode.connect(audioCtx.destination);
+function audioSetUp(){
+    if (audioCtx===null){
+        audioCtx = new (window.AudioContext || window.webkitAudiotContext)();
+        const audioFilePath = './static/cartoon.mp3'; 
+        // }
+
+        audio = new Audio(audioFilePath);
+        let audioElement = audioCtx.createMediaElementSource(audio);
+        gainNode = audioCtx.createGain();
+        audioElement.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+    }
+}
 
 function soundAnimate(volume, time){
     return new Promise((resolve)=>{
@@ -38,6 +44,7 @@ function delay(ms){
 }
 
 function shuffle(){
+    
     for (let i=0; i<barAmt; i++){
         arr[i] = Math.random();//each arr element gets a random number
         // console.log(arr[i]);
@@ -46,6 +53,7 @@ function shuffle(){
 }
     
 function sort(){
+    audioSetUp();
     //create a new array by shallow copy so that original array value will not be affected
     //if I get movement from the original array, it will be sorted after bubbleSort call
     let arrCopy=[...arr];
